@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ECE81DCC208E78C4005002F4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE81DCB208E78C4005002F4 /* main.cpp */; };
+		EC76C100208F87D400E25EF1 /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC76C0FF208F87D400E25EF1 /* TextureManager.cpp */; };
+		EC8D45B2208E8C22008124DD /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8D45B1208E8C22008124DD /* SDL2_image.framework */; };
+		ECE81DCC208E78C4005002F4 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE81DCB208E78C4005002F4 /* Main.cpp */; };
+		ECE81DD4208E794F005002F4 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE81DD3208E794F005002F4 /* SDL2.framework */; };
+		ECE81DD7208E7A5B005002F4 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE81DD5208E7A5B005002F4 /* Game.cpp */; };
+		ECFBDE57208F8D080013B205 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECFBDE55208F8D080013B205 /* GameObject.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +28,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC76C0FD208E93EC00E25EF1 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		EC76C0FE208F875800E25EF1 /* TextureManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureManager.hpp; sourceTree = "<group>"; };
+		EC76C0FF208F87D400E25EF1 /* TextureManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
+		EC8D45B1208E8C22008124DD /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		ECE81DC8208E78C4005002F4 /* 2d_engine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 2d_engine; sourceTree = BUILT_PRODUCTS_DIR; };
-		ECE81DCB208E78C4005002F4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		ECE81DCB208E78C4005002F4 /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
+		ECE81DD3208E794F005002F4 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		ECE81DD5208E7A5B005002F4 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		ECE81DD6208E7A5B005002F4 /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
+		ECFBDE55208F8D080013B205 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
+		ECFBDE56208F8D080013B205 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC8D45B2208E8C22008124DD /* SDL2_image.framework in Frameworks */,
+				ECE81DD4208E794F005002F4 /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +57,10 @@
 		ECE81DBF208E78C4005002F4 = {
 			isa = PBXGroup;
 			children = (
+				EC76C0FD208E93EC00E25EF1 /* assets */,
 				ECE81DCA208E78C4005002F4 /* 2d_engine */,
 				ECE81DC9208E78C4005002F4 /* Products */,
+				ECE81DD2208E794F005002F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +75,24 @@
 		ECE81DCA208E78C4005002F4 /* 2d_engine */ = {
 			isa = PBXGroup;
 			children = (
-				ECE81DCB208E78C4005002F4 /* main.cpp */,
+				ECE81DCB208E78C4005002F4 /* Main.cpp */,
+				ECE81DD5208E7A5B005002F4 /* Game.cpp */,
+				ECE81DD6208E7A5B005002F4 /* Game.hpp */,
+				EC76C0FE208F875800E25EF1 /* TextureManager.hpp */,
+				EC76C0FF208F87D400E25EF1 /* TextureManager.cpp */,
+				ECFBDE55208F8D080013B205 /* GameObject.cpp */,
+				ECFBDE56208F8D080013B205 /* GameObject.hpp */,
 			);
 			path = 2d_engine;
+			sourceTree = "<group>";
+		};
+		ECE81DD2208E794F005002F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC8D45B1208E8C22008124DD /* SDL2_image.framework */,
+				ECE81DD3208E794F005002F4 /* SDL2.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +151,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECE81DCC208E78C4005002F4 /* main.cpp in Sources */,
+				ECFBDE57208F8D080013B205 /* GameObject.cpp in Sources */,
+				ECE81DCC208E78C4005002F4 /* Main.cpp in Sources */,
+				EC76C100208F87D400E25EF1 /* TextureManager.cpp in Sources */,
+				ECE81DD7208E7A5B005002F4 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +274,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -246,6 +286,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
