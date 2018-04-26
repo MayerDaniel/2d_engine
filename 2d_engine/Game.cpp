@@ -8,7 +8,12 @@
 
 #include "Game.hpp"
 
-GameObject *playerObj;
+Map *map;
+
+SDL_Renderer *Game::renderer = nullptr;
+
+Manager manager;
+auto& newPlayer(manager.addEntity());
 
 Game::Game()
 {}
@@ -42,7 +47,12 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         
         isRunning = true;
         
-        playerObj = new GameObject("./assets/player.png", renderer);
+        map = new Map();
+        
+        //ecs implementation
+        
+        newPlayer.addComponent<PositionComponent>(32,32);
+        newPlayer.addComponent<SpriteComponent>("assets/strip.png");
         
     } else {
         isRunning = false;
@@ -51,17 +61,31 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 
 void Game::handleEvents()
 {
-    SDL_Event event;
-    SDL_PollEvent(&event);
     
-    switch(event.type){
-        case SDL_QUIT:
-            isRunning = false;
-            break;
-            
-        delfault:
-            break;
+    for (auto &event : Game::GetFrameEvents()){
+        
+        switch(event.type){
+            case SDL_QUIT:
+                isRunning = false;
+                break;
+                
+            case SDL_MOUSEMOTION:
+                mouseX = event.motion.x;
+                mouseY = event.motion.y;
+                
+            case SDL_MOUSEBUTTONDOWN:
+                if (event.button.button == SDL_BUTTON_LEFT){
+                    newPlayer.getComponent<PositionComponent>().update(mouseX - (mouseX % 32), mouseY - (mouseY % 32));
+                }
+                
+                
+            delfault:
+                break;
+        }
+        
     }
+    
+    Game::GetFrameEvents().clear();
     
     
 }
@@ -69,14 +93,17 @@ void Game::handleEvents()
 void Game::update()
 {
     count++;
-    playerObj->Update();
+    manager.update();
+    newPlayer.update();
+    
 
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    playerObj->Render();
+    map->DrawMap();
+    newPlayer.draw();
     SDL_RenderPresent(renderer);
 }
 

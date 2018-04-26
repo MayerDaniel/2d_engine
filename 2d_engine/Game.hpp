@@ -4,9 +4,9 @@
 #include "SDL2/SDL.h"
 #include "SDL2_image/SDL_image.h"
 #include "TextureManager.hpp"
-#include "GameObject.hpp"
+#include "Map.hpp"
+#include "Components.hpp"
 #include <iostream>
-
 
 class Game{
 public:
@@ -21,11 +21,23 @@ public:
     
     bool running() {return isRunning; };
     
+    static SDL_Renderer *renderer;
+    
+    //janky closure for event handler
+    static std::vector<SDL_Event>& GetFrameEvents()
+    {
+        static std::vector<SDL_Event> frame_events;
+        return frame_events;
+    }
+    
 private:
+    //event handler vars
+    int mouseX;
+    int mouseY;
+    
     bool isRunning;
     int count = 0;
     SDL_Window *window;
-    SDL_Renderer *renderer;
 };
 
 #endif
