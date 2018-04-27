@@ -13,7 +13,8 @@ Map *map;
 SDL_Renderer *Game::renderer = nullptr;
 
 Manager manager;
-auto& newPlayer(manager.addEntity());
+auto &newPlayer(manager.addEntity());
+auto &nullEntity(manager.addEntity());
 
 Game::Game()
 {}
@@ -51,7 +52,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         
         //ecs implementation
         
-        newPlayer.addComponent<PositionComponent>(32,32);
+        newPlayer.addComponent<PositionComponent>(32,32,4);
         newPlayer.addComponent<SpriteComponent>("assets/strip.png");
         
     } else {
@@ -75,7 +76,21 @@ void Game::handleEvents()
                 
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT){
-                    newPlayer.getComponent<PositionComponent>().update(mouseX - (mouseX % 32), mouseY - (mouseY % 32));
+                    
+                    if (newPlayer.getComponent<PositionComponent>().x() == (mouseX - (mouseX % 32)) && newPlayer.getComponent<PositionComponent>().y() == (mouseY - (mouseY % 32)) )
+                    {
+                        newPlayer.setClick(!newPlayer.isClicked());
+                    
+                    } else if (newPlayer.isClicked()){
+                        
+                        newPlayer.getComponent<PositionComponent>().update(mouseX - (mouseX % 32), mouseY - (mouseY % 32));
+                        newPlayer.setClick(false);
+                        
+                    }
+                    
+                    
+
+                    
                 }
                 
                 
@@ -92,11 +107,8 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    count++;
     manager.update();
-    newPlayer.update();
-    
-
+    newPlayer.update(); // change to vector of entities 
 }
 
 void Game::render()

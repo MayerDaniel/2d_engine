@@ -6,6 +6,7 @@
 #include "TextureManager.hpp"
 #include "Map.hpp"
 #include "Components.hpp"
+#include "ECS.hpp"
 #include <iostream>
 
 class Game{
@@ -34,6 +35,8 @@ private:
     //event handler vars
     int mouseX;
     int mouseY;
+    
+    Entity clickedEntity;
     
     bool isRunning;
     int count = 0;

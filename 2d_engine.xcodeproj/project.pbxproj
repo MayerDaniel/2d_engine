@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC2151F2209393190006127E /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC2151F0209393190006127E /* Tile.cpp */; };
 		EC76C100208F87D400E25EF1 /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC76C0FF208F87D400E25EF1 /* TextureManager.cpp */; };
 		EC8D45B2208E8C22008124DD /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8D45B1208E8C22008124DD /* SDL2_image.framework */; };
 		ECD639FD209253B3000AE7DB /* SpriteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECD639FC209253B3000AE7DB /* SpriteComponent.cpp */; };
@@ -30,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC2151F0209393190006127E /* Tile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
+		EC2151F1209393190006127E /* Tile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tile.hpp; sourceTree = "<group>"; };
 		EC76C0FD208E93EC00E25EF1 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		EC76C0FE208F875800E25EF1 /* TextureManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureManager.hpp; sourceTree = "<group>"; };
 		EC76C0FF208F87D400E25EF1 /* TextureManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
@@ -62,6 +65,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC2151EF209392260006127E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				ECFBDE59208FB00F0013B205 /* Map.hpp */,
+				ECFBDE58208FB00F0013B205 /* Map.cpp */,
+				EC2151F0209393190006127E /* Tile.cpp */,
+				EC2151F1209393190006127E /* Tile.hpp */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		EC778AD42092413400D68EA5 /* ECS */ = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +87,13 @@
 				ECD639FE20925642000AE7DB /* PositionComponent.cpp */,
 			);
 			path = ECS;
+			sourceTree = "<group>";
+		};
+		ECD63A0320927C47000AE7DB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		ECE81DBF208E78C4005002F4 = {
@@ -96,14 +117,14 @@
 		ECE81DCA208E78C4005002F4 /* 2d_engine */ = {
 			isa = PBXGroup;
 			children = (
+				EC2151EF209392260006127E /* Map */,
+				ECD63A0320927C47000AE7DB /* UI */,
 				EC778AD42092413400D68EA5 /* ECS */,
 				ECE81DCB208E78C4005002F4 /* Main.cpp */,
 				ECE81DD6208E7A5B005002F4 /* Game.hpp */,
 				ECE81DD5208E7A5B005002F4 /* Game.cpp */,
 				EC76C0FE208F875800E25EF1 /* TextureManager.hpp */,
 				EC76C0FF208F87D400E25EF1 /* TextureManager.cpp */,
-				ECFBDE59208FB00F0013B205 /* Map.hpp */,
-				ECFBDE58208FB00F0013B205 /* Map.cpp */,
 			);
 			path = 2d_engine;
 			sourceTree = "<group>";
@@ -179,6 +200,7 @@
 				EC76C100208F87D400E25EF1 /* TextureManager.cpp in Sources */,
 				ECD639FF20925642000AE7DB /* PositionComponent.cpp in Sources */,
 				ECE81DD7208E7A5B005002F4 /* Game.cpp in Sources */,
+				EC2151F2209393190006127E /* Tile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

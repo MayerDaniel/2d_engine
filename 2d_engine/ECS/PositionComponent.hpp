@@ -9,6 +9,7 @@
 #ifndef PositionComponent_h
 #define PositionComponent_h
 
+#include "../TextureManager.hpp"
 #include "Components.hpp"
 
 class PositionComponent : public Component
@@ -16,14 +17,17 @@ class PositionComponent : public Component
 private:
     int xpos;
     int ypos;
+    int moveableTiles;
+    SDL_Rect src, dest;
     
 public:
     
     PositionComponent();
     
-    PositionComponent(int x, int y);
+    PositionComponent(int x, int y, int tiles);
     
     void update() override;
+    void draw() override;
     
     int x();
     void x(int x);
@@ -32,6 +36,8 @@ public:
     void y(int y);
     
     void update(int x, int y);
+    
+    void showValidMoves();
     
 };
 

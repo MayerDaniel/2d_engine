@@ -28,7 +28,6 @@ inline ComponentID getComponentTypeID() //inline is a size-exectution time trade
 template <typename T> inline ComponentID getComponentTypeID() noexcept //template to create a new type of component and get the id of new component
 {
     static ComponentID typeID = getComponentTypeID();
-    std::cout << typeID << std::endl;
     return typeID; //()
 }
 
@@ -54,6 +53,7 @@ class Entity //some sort of game object which will hold components
 private:
     bool active = true; //a flag to let the game know that it should not be destroyed
     std::vector<std::unique_ptr<Component>> components; //a dynamic-sized array of components of this entity
+    bool clicked = false;
     
     ComponentArray componentArray; //see line 37
     ComponentBitSet componentBitSet; //see line 36
@@ -94,6 +94,10 @@ public:
         auto ptr(componentArray[getComponentTypeID<T>()]); //gets the component from the component array - more of a dict, really
         return *static_cast<T*>(ptr); //returns a static pointer to the component
     }
+    
+    bool isClicked(){ return clicked; }
+    
+    void setClick(bool c) { clicked = c; }
     
 //    gameobject.getComponent<PositionComponent>().setXpos(25); --- example of how to use the entity class
     
