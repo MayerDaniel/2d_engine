@@ -14,7 +14,9 @@ SDL_Renderer *Game::renderer = nullptr;
 
 Manager manager;
 auto &newPlayer(manager.addEntity());
-auto &nullEntity(manager.addEntity());
+auto &tile1(manager.addEntity());
+auto &tile2(manager.addEntity());
+
 
 Game::Game()
 {}
@@ -52,8 +54,15 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         
         //ecs implementation
         
-        newPlayer.addComponent<PositionComponent>(32,32,4);
+        newPlayer.addComponent<PositionComponent>(32,32);
         newPlayer.addComponent<SpriteComponent>("assets/strip.png");
+        newPlayer.addComponent<MovementComponent>(3);
+        
+        tile1.addComponent<PositionComponent>(64,32);
+        tile1.addComponent<SpriteComponent>("assets/strip.png");
+        
+        tile2.addComponent<PositionComponent>(32,64);
+        tile2.addComponent<SpriteComponent>("assets/strip.png");
         
     } else {
         isRunning = false;
@@ -77,13 +86,19 @@ void Game::handleEvents()
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT){
                     
+                    std::vector<std::array<int,2>> takenTiles;
+                    
+                    takenTiles.push_back({tile1.getComponent<PositionComponent>().x(), tile1.getComponent<PositionComponent>().y()});
+                    takenTiles.push_back({tile2.getComponent<PositionComponent>().x(), tile2.getComponent<PositionComponent>().y()}); //refactor
+                    
                     if (newPlayer.getComponent<PositionComponent>().x() == (mouseX - (mouseX % 32)) && newPlayer.getComponent<PositionComponent>().y() == (mouseY - (mouseY % 32)) )
                     {
                         newPlayer.setClick(!newPlayer.isClicked());
+                        newPlayer.getComponent<MovementComponent>().showValidMoves(takenTiles);
                     
                     } else if (newPlayer.isClicked()){
                         
-                        newPlayer.getComponent<PositionComponent>().update(mouseX - (mouseX % 32), mouseY - (mouseY % 32));
+                        newPlayer.getComponent<MovementComponent>().move(mouseX - (mouseX % 32), mouseY - (mouseY % 32), takenTiles);
                         newPlayer.setClick(false);
                         
                     }
@@ -108,14 +123,13 @@ void Game::handleEvents()
 void Game::update()
 {
     manager.update();
-    newPlayer.update(); // change to vector of entities 
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
     map->DrawMap();
-    newPlayer.draw();
+    manager.draw();
     SDL_RenderPresent(renderer);
 }
 

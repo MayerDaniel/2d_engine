@@ -12,5 +12,6 @@
 #include "ECS.hpp"
 #include "SpriteComponent.hpp"
 #include "PositionComponent.hpp"
+#include "MovementComponent.hpp"
 
 #endif /* Header_h */

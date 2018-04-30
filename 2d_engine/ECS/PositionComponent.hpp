@@ -12,20 +12,16 @@
 #include "../TextureManager.hpp"
 #include "Components.hpp"
 
+
 class PositionComponent : public Component
 {
 private:
-    int xpos;
-    int ypos;
-    int moveableTiles;
-    SDL_Rect src, dest;
+    int xpos, ypos;
     
 public:
-    
     PositionComponent();
-    
-    PositionComponent(int x, int y, int tiles);
-    
+    PositionComponent(int x, int y);
+        
     void update() override;
     void draw() override;
     
@@ -37,9 +33,6 @@ public:
     
     void update(int x, int y);
     
-    void showValidMoves();
-    
 };
-
 
 #endif /* PositionComponent_h */
