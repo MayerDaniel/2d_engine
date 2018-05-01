@@ -27,32 +27,25 @@ MovementComponent::MovementComponent(int moves){
 }
 
 void MovementComponent::move(int xpos, int ypos, std::vector<std::array<int, 2> > taken){
-    bool empty = true;
     
-    int x = this->entity->getComponent<PositionComponent>().x();
-    int y = this->entity->getComponent<PositionComponent>().y();
-    
-    for (auto &t : taken){
-        if (xpos == t[0] && ypos == t[1]){
-            empty = false;
+    for (auto &m : moves){
+        if (m.dest.x == xpos && m.dest.y == ypos){
+            
+            this->entity->getComponent<PositionComponent>().update(xpos, ypos);
+            
+        } else {
+            
         }
+        
     }
     
-    if (abs(x - xpos) > moveableTiles*32 || (abs(y - ypos) > moveableTiles*32)){
-        std::cout << "Too far away!" << std::endl;
-    } else if (!empty){
-        std::cout << "Space is occupied" << std::endl;
-    } else {
-        this->entity->getComponent<PositionComponent>().update(xpos, ypos);
-    }
+    
     
     
 }
 
 void MovementComponent::showValidMoves(std::vector<std::array<int,2>> taken){
-    
-    src.x = src.y = 0;
-    
+   
     int xpos = this->entity->getComponent<PositionComponent>().x();
     int ypos = this->entity->getComponent<PositionComponent>().y();
     

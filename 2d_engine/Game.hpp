@@ -22,6 +22,8 @@ public:
     
     bool running() {return isRunning; };
     
+    std::vector<std::array<int,2>> getTakenTiles();
+    
     static SDL_Renderer *renderer;
     
     //janky closure for event handler

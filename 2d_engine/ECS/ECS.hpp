@@ -121,6 +121,7 @@ public:
         for (auto &e : entities) e->draw(); //draw all the entities
     }
     
+ 
     void refresh()
     {
         entities.erase(std::remove_if(begin(entities), std::end(entities), [](const std::unique_ptr<Entity> &mEntity){ return !mEntity->isActive();}), std::end(entities));

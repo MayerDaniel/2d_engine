@@ -26,6 +26,7 @@ Game::~Game()
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+    
     int flags = 0;
     if (fullscreen)
     {
@@ -60,6 +61,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         
         tile1.addComponent<PositionComponent>(64,32);
         tile1.addComponent<SpriteComponent>("assets/strip.png");
+        tile1.addComponent<MovementComponent>(4);
         
         tile2.addComponent<PositionComponent>(32,64);
         tile2.addComponent<SpriteComponent>("assets/strip.png");
@@ -86,10 +88,7 @@ void Game::handleEvents()
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT){
                     
-                    std::vector<std::array<int,2>> takenTiles;
-                    
-                    takenTiles.push_back({tile1.getComponent<PositionComponent>().x(), tile1.getComponent<PositionComponent>().y()});
-                    takenTiles.push_back({tile2.getComponent<PositionComponent>().x(), tile2.getComponent<PositionComponent>().y()}); //refactor
+                    std::vector<std::array<int,2>>takenTiles = getTakenTiles();
                     
                     if (newPlayer.getComponent<PositionComponent>().x() == (mouseX - (mouseX % 32)) && newPlayer.getComponent<PositionComponent>().y() == (mouseY - (mouseY % 32)) )
                     {
@@ -140,5 +139,21 @@ void Game::clean()
     SDL_Quit();
     std::cout << "Game cleaned" << std::endl;
 }
+
+std::vector<std::array<int,2>> Game::getTakenTiles()
+{
+    std::vector<std::array<int,2>> takenTiles;
+    
+    
+    
+    takenTiles.push_back({tile1.getComponent<PositionComponent>().x(), tile1.getComponent<PositionComponent>().y()});
+    takenTiles.push_back({tile2.getComponent<PositionComponent>().x(), tile2.getComponent<PositionComponent>().y()}); //refactor
+    
+    return takenTiles;
+    
+}
+
+
+
 
 
