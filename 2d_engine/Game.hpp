@@ -4,8 +4,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2_image/SDL_image.h"
 #include "TextureManager.hpp"
-#include "Map.hpp"
 #include "Components.hpp"
+#include "Map.hpp"
 #include "ECS.hpp"
 #include <iostream>
 
@@ -24,6 +24,7 @@ public:
     
     std::vector<std::array<int,2>> getTakenTiles();
     
+    static void addTile(int x, int y, int wall1, int wall2);
     static SDL_Renderer *renderer;
     
     //janky closure for event handler
@@ -37,8 +38,6 @@ private:
     //event handler vars
     int mouseX;
     int mouseY;
-    
-    Entity clickedEntity;
     
     bool isRunning;
     int count = 0;

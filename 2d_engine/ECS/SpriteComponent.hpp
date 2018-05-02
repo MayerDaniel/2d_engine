@@ -21,11 +21,14 @@ private:
     PositionComponent *position;
     SDL_Texture *texture;
     SDL_Rect srcRect, destRect;
+    int srcH;
+    int srcW;
     int counter;
     
 public:
     SpriteComponent() = default;
     SpriteComponent(const char* path);
+    SpriteComponent(int h, int w, const char* path);
     
     void setTex(const char* path);
     

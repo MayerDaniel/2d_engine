@@ -26,7 +26,7 @@ MovementComponent::MovementComponent(int moves){
     moveableTiles = moves;
 }
 
-void MovementComponent::move(int xpos, int ypos, std::vector<std::array<int, 2> > taken){
+void MovementComponent::move(int xpos, int ypos){
     
     for (auto &m : moves){
         if (m.dest.x == xpos && m.dest.y == ypos){
@@ -44,33 +44,46 @@ void MovementComponent::move(int xpos, int ypos, std::vector<std::array<int, 2> 
     
 }
 
-void MovementComponent::showValidMoves(std::vector<std::array<int,2>> taken){
+void MovementComponent::showValidMoves(std::vector<std::array<int,2>> takenOrVisited){  //refactor this shiz
    
     int xpos = this->entity->getComponent<PositionComponent>().x();
     int ypos = this->entity->getComponent<PositionComponent>().y();
     
-    int endX = xpos + ((moveableTiles + 1) * 32); //the +1 compensate for the fact that sprite's locations are their top left corner
-    int endY = ypos + ((moveableTiles + 1) * 32);
+    std::queue<std::array<int, 3>> queue;
+    queue.push({xpos + 32, ypos, moveableTiles});
+    queue.push({xpos - 32, ypos, moveableTiles});
+    queue.push({xpos, ypos + 32, moveableTiles});
+    queue.push({xpos, ypos - 32, moveableTiles});
     
-    for (int x = xpos - (moveableTiles * 32); x < endX; x = x + 32){
+    
+    while (!queue.empty()){
         
-        for(int y = ypos - (moveableTiles * 32); y < endY; y = y + 32){
-            
-            bool empty = true;
-            
-            for (auto &t : taken){
-                if (x == t[0] && y == t[1]){
-                    empty = false;
-                }
+        auto &currTile(queue.front());
+        int x = currTile[0];
+        int y = currTile[1];
+        int movesLeft = currTile[2];
+        
+        bool valid = true;
+        for (auto &t : takenOrVisited){
+            if(x == t[0] && y == t[1]){
+                valid = false;
             }
+        }
+        
+        if (movesLeft > 0 && valid){
             
-            if(!(x == xpos && y == ypos) && empty){
-                MoveMarker a = MoveMarker(x,y);
-                moves.push_back(a);
-            }
+            MoveMarker m = MoveMarker(x, y);
+            moves.push_back(m);
+            takenOrVisited.push_back({x,y});
             
+            queue.push({x + 32, y, movesLeft - 1});
+            queue.push({x - 32, y, movesLeft - 1});
+            queue.push({x, y + 32, movesLeft - 1});
+            queue.push({x, y - 32, movesLeft - 1});
             
         }
+        
+        queue.pop();
         
     }
     
@@ -82,7 +95,6 @@ void MovementComponent::draw(){
         
         SDL_Texture *tile = TextureManager::LoadTexture("assets/valid_move.png");
         for (auto &m : moves){
-            std::cout << m.dest.x << ", " << m.dest.y << std::endl;
             TextureManager::Draw(tile, m.src, m.dest);
         }
     } else {

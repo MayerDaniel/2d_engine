@@ -10,6 +10,7 @@
 #define MovementComponent_hpp
 
 #include "Components.hpp"
+#include <queue>
 
 class MoveMarker
 {
@@ -29,7 +30,7 @@ public:
     MovementComponent();
     MovementComponent(int moves);
     
-    void move(int xpos, int ypos, std::vector<std::array<int,2>> taken);
+    void move(int xpos, int ypos);
     
     void showValidMoves(std::vector<std::array<int,2>> taken);
     

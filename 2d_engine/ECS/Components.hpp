@@ -13,5 +13,6 @@
 #include "SpriteComponent.hpp"
 #include "PositionComponent.hpp"
 #include "MovementComponent.hpp"
+#include "TileComponent.hpp"
 
 #endif /* Header_h */

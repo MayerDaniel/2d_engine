@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EC2151F2209393190006127E /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC2151F0209393190006127E /* Tile.cpp */; };
 		EC2151F52097ADC30006127E /* MovementComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC2151F32097ADC30006127E /* MovementComponent.cpp */; };
 		EC76C100208F87D400E25EF1 /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC76C0FF208F87D400E25EF1 /* TextureManager.cpp */; };
 		EC8D45B2208E8C22008124DD /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8D45B1208E8C22008124DD /* SDL2_image.framework */; };
+		EC92F1D0209A450A00DD6120 /* ECS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC92F1CF209A450A00DD6120 /* ECS.cpp */; };
+		ECC476EA209A2F2B00D241AE /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECC476E9209A2F2A00D241AE /* Map.cpp */; };
 		ECD639FD209253B3000AE7DB /* SpriteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECD639FC209253B3000AE7DB /* SpriteComponent.cpp */; };
 		ECD639FF20925642000AE7DB /* PositionComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECD639FE20925642000AE7DB /* PositionComponent.cpp */; };
 		ECE81DCC208E78C4005002F4 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE81DCB208E78C4005002F4 /* Main.cpp */; };
 		ECE81DD4208E794F005002F4 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE81DD3208E794F005002F4 /* SDL2.framework */; };
 		ECE81DD7208E7A5B005002F4 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE81DD5208E7A5B005002F4 /* Game.cpp */; };
-		ECFBDE5A208FB00F0013B205 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECFBDE58208FB00F0013B205 /* Map.cpp */; };
+		ECF654B3209A1ED800602DC2 /* TileComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECF654B1209A1ED800602DC2 /* TileComponent.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,8 +33,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		EC2151F0209393190006127E /* Tile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
-		EC2151F1209393190006127E /* Tile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tile.hpp; sourceTree = "<group>"; };
 		EC2151F32097ADC30006127E /* MovementComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MovementComponent.cpp; sourceTree = "<group>"; };
 		EC2151F42097ADC30006127E /* MovementComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MovementComponent.hpp; sourceTree = "<group>"; };
 		EC76C0FD208E93EC00E25EF1 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -44,6 +43,9 @@
 		EC778AD6209241E100D68EA5 /* PositionComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PositionComponent.hpp; sourceTree = "<group>"; };
 		EC778AD72092422B00D68EA5 /* Components.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Components.hpp; sourceTree = "<group>"; };
 		EC8D45B1208E8C22008124DD /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		EC92F1CF209A450A00DD6120 /* ECS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ECS.cpp; sourceTree = "<group>"; };
+		ECC476E9209A2F2A00D241AE /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Map.cpp; path = ../../../.Trash/Map.cpp; sourceTree = "<group>"; };
+		ECC476EB209A2F3300D241AE /* Map.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Map.hpp; path = ../../../.Trash/Map.hpp; sourceTree = "<group>"; };
 		ECD639FC209253B3000AE7DB /* SpriteComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteComponent.cpp; sourceTree = "<group>"; };
 		ECD639FE20925642000AE7DB /* PositionComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PositionComponent.cpp; sourceTree = "<group>"; };
 		ECE81DC8208E78C4005002F4 /* 2d_engine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 2d_engine; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,8 +53,8 @@
 		ECE81DD3208E794F005002F4 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		ECE81DD5208E7A5B005002F4 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		ECE81DD6208E7A5B005002F4 /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
-		ECFBDE58208FB00F0013B205 /* Map.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
-		ECFBDE59208FB00F0013B205 /* Map.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Map.hpp; sourceTree = "<group>"; };
+		ECF654B1209A1ED800602DC2 /* TileComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TileComponent.cpp; sourceTree = "<group>"; };
+		ECF654B2209A1ED800602DC2 /* TileComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TileComponent.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,21 +70,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EC2151EF209392260006127E /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				EC2151F1209393190006127E /* Tile.hpp */,
-				ECFBDE59208FB00F0013B205 /* Map.hpp */,
-				ECFBDE58208FB00F0013B205 /* Map.cpp */,
-				EC2151F0209393190006127E /* Tile.cpp */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
 		EC778AD42092413400D68EA5 /* ECS */ = {
 			isa = PBXGroup;
 			children = (
 				EC778ACF208FC03E00D68EA5 /* ECS.hpp */,
+				EC92F1CF209A450A00DD6120 /* ECS.cpp */,
 				EC778AD72092422B00D68EA5 /* Components.hpp */,
 				EC778AD5209241AB00D68EA5 /* SpriteComponent.hpp */,
 				ECD639FC209253B3000AE7DB /* SpriteComponent.cpp */,
@@ -90,8 +82,17 @@
 				ECD639FE20925642000AE7DB /* PositionComponent.cpp */,
 				EC2151F42097ADC30006127E /* MovementComponent.hpp */,
 				EC2151F32097ADC30006127E /* MovementComponent.cpp */,
+				ECF654B1209A1ED800602DC2 /* TileComponent.cpp */,
+				ECF654B2209A1ED800602DC2 /* TileComponent.hpp */,
 			);
 			path = ECS;
+			sourceTree = "<group>";
+		};
+		ECC476EC209A379300D241AE /* Dev */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Dev;
 			sourceTree = "<group>";
 		};
 		ECD63A0320927C47000AE7DB /* UI */ = {
@@ -122,10 +123,12 @@
 		ECE81DCA208E78C4005002F4 /* 2d_engine */ = {
 			isa = PBXGroup;
 			children = (
-				EC2151EF209392260006127E /* Map */,
+				ECC476EC209A379300D241AE /* Dev */,
 				ECD63A0320927C47000AE7DB /* UI */,
 				EC778AD42092413400D68EA5 /* ECS */,
 				ECE81DCB208E78C4005002F4 /* Main.cpp */,
+				ECC476EB209A2F3300D241AE /* Map.hpp */,
+				ECC476E9209A2F2A00D241AE /* Map.cpp */,
 				ECE81DD6208E7A5B005002F4 /* Game.hpp */,
 				ECE81DD5208E7A5B005002F4 /* Game.cpp */,
 				EC76C0FE208F875800E25EF1 /* TextureManager.hpp */,
@@ -199,14 +202,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECFBDE5A208FB00F0013B205 /* Map.cpp in Sources */,
+				EC92F1D0209A450A00DD6120 /* ECS.cpp in Sources */,
 				ECD639FD209253B3000AE7DB /* SpriteComponent.cpp in Sources */,
 				ECE81DCC208E78C4005002F4 /* Main.cpp in Sources */,
 				EC76C100208F87D400E25EF1 /* TextureManager.cpp in Sources */,
+				ECF654B3209A1ED800602DC2 /* TileComponent.cpp in Sources */,
 				EC2151F52097ADC30006127E /* MovementComponent.cpp in Sources */,
 				ECD639FF20925642000AE7DB /* PositionComponent.cpp in Sources */,
+				ECC476EA209A2F2B00D241AE /* Map.cpp in Sources */,
 				ECE81DD7208E7A5B005002F4 /* Game.cpp in Sources */,
-				EC2151F2209393190006127E /* Tile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

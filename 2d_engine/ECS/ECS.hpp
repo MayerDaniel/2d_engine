@@ -16,10 +16,12 @@
 
 class Component; //an attribute of a game object, essentially
 class Entity; //a game object
+class Manager;
 
 using ComponentID = std::size_t; //like an int, but actual size is platform dependant. Also can maybe hold more than numbers?
+using Group = std::size_t;
 
-inline ComponentID getComponentTypeID() //inline is a size-exectution time tradeoff - faster but code is bigger https://www.youtube.com/watch?v=Yh1mJlip3hw
+inline ComponentID getNewComponentTypeID() //inline is a size-exectution time tradeoff - faster but code is bigger https://www.youtube.com/watch?v=Yh1mJlip3hw
 {
     static ComponentID lastID = 0; //how does this increment?? - it works like a janky closure, where the variable only exists inside this scope, but the static variable can
     return lastID++;               //only be initalized once, so every time after the first that part of the code is ignored and it only increments - pretty hype
@@ -27,13 +29,15 @@ inline ComponentID getComponentTypeID() //inline is a size-exectution time trade
 
 template <typename T> inline ComponentID getComponentTypeID() noexcept //template to create a new type of component and get the id of new component
 {
-    static ComponentID typeID = getComponentTypeID();
+    static ComponentID typeID = getNewComponentTypeID();
     return typeID; //()
 }
 
 constexpr std::size_t maxComponents = 32; //max number of components is 32 - this is declared at compile time to save runtime
+constexpr std::size_t maxGroups = 32;
 
 using ComponentBitSet = std::bitset<maxComponents>; //bitset is essentially an array that holds booleans - 32 bits in this case.
+using GroupBitset = std::bitset<maxGroups>;
 using ComponentArray = std::array<Component *, maxComponents>; //array of components which is 32 components long
 
 class Component //component is an attribute of an entity which can hold all sorts of different data
@@ -51,14 +55,19 @@ public:
 class Entity //some sort of game object which will hold components
 {
 private:
+    Manager &manager;
     bool active = true; //a flag to let the game know that it should not be destroyed
     std::vector<std::unique_ptr<Component>> components; //a dynamic-sized array of components of this entity
     bool clicked = false;
     
     ComponentArray componentArray; //see line 37
     ComponentBitSet componentBitSet; //see line 36
+    GroupBitset groupBitset;
     
 public:
+    
+    Entity(Manager &mManager) : manager(mManager) {}
+    
     void update()
     {
         for(auto& c : components) c->update(); //loop through all of the components of the entity and update them
@@ -69,6 +78,17 @@ public:
     }
     bool isActive() const { return active; }
     void destroy() {active = false;}
+    
+    bool hasGroup(Group mGroup)
+    {
+        return groupBitset[mGroup];
+    }
+    
+    void addGroup(Group mGroup);
+    void delGroup(Group mGroup)
+    {
+        groupBitset[mGroup] = false;
+    }
     
     template <typename T> bool hasComponent() const
     {
@@ -108,6 +128,7 @@ class Manager  //manager of all of the entities
 private:
     
     std::vector<std::unique_ptr<Entity>> entities; //vector of ptrs to all the entities
+    std::array<std::vector<Entity*>, maxGroups> groupedEntities;
 
 public:
     
@@ -124,6 +145,13 @@ public:
  
     void refresh()
     {
+        
+        for(auto i(0u); i < maxGroups; i++)
+        {
+            auto &v(groupedEntities[i]);
+            v.erase(std::remove_if(std::begin(v), std::end(v), [i](Entity *mEntity){return !mEntity->isActive() || !mEntity->hasGroup(1);}), std::end(v));
+        }
+        
         entities.erase(std::remove_if(begin(entities), std::end(entities), [](const std::unique_ptr<Entity> &mEntity){ return !mEntity->isActive();}), std::end(entities));
         
         //seriously wtf is this - vector.erase take (iterator first, iterator last - this is the std::end(entities) part;
@@ -135,9 +163,19 @@ public:
          current entity as an arg. It also returns opposite of isActive. I assume thats becuase 1 = delete in remove_if*/
     }
     
+    void AddToGroup(Entity *mEntity, Group mGroup)
+    {
+        groupedEntities[mGroup].emplace_back(mEntity);
+    }
+    
+    std::vector<Entity*>& getGroup(Group mGroup)
+    {
+        return groupedEntities[mGroup];
+    }
+    
     Entity &addEntity()
     {
-        Entity *e = new Entity(); //create new entity
+        Entity *e = new Entity(*this); //create new entity
         std::unique_ptr<Entity> uPtr{ e }; //create a smart pointer for it
         entities.emplace_back(std::move(uPtr)); //add smart pointer to back of the vector of all entities
         return *e; //return regular pointer to entity

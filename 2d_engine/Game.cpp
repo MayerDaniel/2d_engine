@@ -8,15 +8,20 @@
 
 #include "Game.hpp"
 
-Map *map;
 
 SDL_Renderer *Game::renderer = nullptr;
 
 Manager manager;
-auto &newPlayer(manager.addEntity());
-auto &tile1(manager.addEntity());
-auto &tile2(manager.addEntity());
+auto &Player1(manager.addEntity());
+auto &Player2(manager.addEntity());
 
+enum groupLabels : std::size_t
+{
+    groupMap,
+    groupPlayers,
+    groupEnemies,
+    groupOccupiers
+};
 
 Game::Game()
 {}
@@ -51,25 +56,32 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         
         isRunning = true;
         
-        map = new Map();
         
         //ecs implementation
         
-        newPlayer.addComponent<PositionComponent>(32,32);
-        newPlayer.addComponent<SpriteComponent>("assets/strip.png");
-        newPlayer.addComponent<MovementComponent>(3);
+        Map::LoadMap("assets/32x32rand.txt", 32, 32);
         
-        tile1.addComponent<PositionComponent>(64,32);
-        tile1.addComponent<SpriteComponent>("assets/strip.png");
-        tile1.addComponent<MovementComponent>(4);
+        Player1.addComponent<PositionComponent>(32,32);
+        Player1.addComponent<SpriteComponent>(16,16,"assets/strip.png");
+        Player1.addComponent<MovementComponent>(3);
+        Player1.addGroup(groupPlayers);
+        Player1.addGroup(groupOccupiers);
         
-        tile2.addComponent<PositionComponent>(32,64);
-        tile2.addComponent<SpriteComponent>("assets/strip.png");
+        Player2.addComponent<PositionComponent>(32,32);
+        Player2.addComponent<SpriteComponent>(16,16,"assets/strip.png");
+        Player2.addComponent<MovementComponent>(5);
+        Player2.addGroup(groupPlayers);
+        Player2.addGroup(groupOccupiers);
         
     } else {
         isRunning = false;
     }
 }
+
+auto& tiles(manager.getGroup(groupMap));
+auto& players(manager.getGroup(groupPlayers));
+auto& enemies(manager.getGroup(groupEnemies));
+auto& occupiers(manager.getGroup(groupOccupiers));
 
 void Game::handleEvents()
 {
@@ -89,16 +101,20 @@ void Game::handleEvents()
                 if (event.button.button == SDL_BUTTON_LEFT){
                     
                     std::vector<std::array<int,2>>takenTiles = getTakenTiles();
-                    
-                    if (newPlayer.getComponent<PositionComponent>().x() == (mouseX - (mouseX % 32)) && newPlayer.getComponent<PositionComponent>().y() == (mouseY - (mouseY % 32)) )
-                    {
-                        newPlayer.setClick(!newPlayer.isClicked());
-                        newPlayer.getComponent<MovementComponent>().showValidMoves(takenTiles);
-                    
-                    } else if (newPlayer.isClicked()){
+
+                    for (auto &p : players){
                         
-                        newPlayer.getComponent<MovementComponent>().move(mouseX - (mouseX % 32), mouseY - (mouseY % 32), takenTiles);
-                        newPlayer.setClick(false);
+                        if (p->getComponent<PositionComponent>().x() == (mouseX - (mouseX % 32)) && p->getComponent<PositionComponent>().y() == (mouseY - (mouseY % 32)) )
+                        {
+                            p->setClick(!p->isClicked());
+                            p->getComponent<MovementComponent>().showValidMoves(takenTiles);
+                            
+                        } else if (p->isClicked()){
+                            
+                            p->getComponent<MovementComponent>().move(mouseX - (mouseX % 32), mouseY - (mouseY % 32));
+                            p->setClick(false);
+                            
+                        }
                         
                     }
                     
@@ -127,8 +143,17 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    map->DrawMap();
-    manager.draw();
+    
+    for (auto &t : tiles){
+        t->draw();
+    }
+    for (auto &p : players){
+        p->draw();
+    }
+    for (auto &p : enemies){
+        p->draw();
+    }
+    
     SDL_RenderPresent(renderer);
 }
 
@@ -142,15 +167,22 @@ void Game::clean()
 
 std::vector<std::array<int,2>> Game::getTakenTiles()
 {
-    std::vector<std::array<int,2>> takenTiles;
+    std::vector<std::array<int,2>> array;
     
+    for (auto &o : occupiers){
+        int x = o->getComponent<PositionComponent>().x();
+        int y = o->getComponent<PositionComponent>().y();
+        array.push_back({x,y});
+    }
     
-    
-    takenTiles.push_back({tile1.getComponent<PositionComponent>().x(), tile1.getComponent<PositionComponent>().y()});
-    takenTiles.push_back({tile2.getComponent<PositionComponent>().x(), tile2.getComponent<PositionComponent>().y()}); //refactor
-    
-    return takenTiles;
-    
+    return array;
+}
+
+void Game::addTile(int x, int y, int wall1, int wall2)
+{
+    auto &tile(manager.addEntity());
+    tile.addComponent<TileComponent>(x,y,(std::array<int, 2>){wall1,wall2});
+    tile.addGroup(groupMap);
 }
 
 
