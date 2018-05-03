@@ -15,6 +15,8 @@ Manager manager;
 auto &Player1(manager.addEntity());
 auto &Player2(manager.addEntity());
 
+Map map = Map(25, 20);
+
 enum groupLabels : std::size_t
 {
     groupMap,
@@ -59,7 +61,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         
         //ecs implementation
         
-        Map::LoadMap("assets/32x32rand.txt", 32, 32);
+        map.LoadMap();
         
         Player1.addComponent<PositionComponent>(32,32);
         Player1.addComponent<SpriteComponent>(16,16,"assets/strip.png");
@@ -67,7 +69,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         Player1.addGroup(groupPlayers);
         Player1.addGroup(groupOccupiers);
         
-        Player2.addComponent<PositionComponent>(32,32);
+        Player2.addComponent<PositionComponent>(96,32);
         Player2.addComponent<SpriteComponent>(16,16,"assets/strip.png");
         Player2.addComponent<MovementComponent>(5);
         Player2.addGroup(groupPlayers);
@@ -103,6 +105,8 @@ void Game::handleEvents()
                     std::vector<std::array<int,2>>takenTiles = getTakenTiles();
 
                     for (auto &p : players){
+                        
+                        std::cout << map.getTile((mouseX - (mouseX % 32)), (mouseY - (mouseY % 32))).getType() << std::endl;
                         
                         if (p->getComponent<PositionComponent>().x() == (mouseX - (mouseX % 32)) && p->getComponent<PositionComponent>().y() == (mouseY - (mouseY % 32)) )
                         {
@@ -167,22 +171,27 @@ void Game::clean()
 
 std::vector<std::array<int,2>> Game::getTakenTiles()
 {
-    std::vector<std::array<int,2>> array;
+    std::vector<std::array<int,2>> taken;
+    
+    std::vector<std::array<int,2>> unnavigable = map.getUnnavigable();
     
     for (auto &o : occupiers){
         int x = o->getComponent<PositionComponent>().x();
         int y = o->getComponent<PositionComponent>().y();
-        array.push_back({x,y});
+        taken.push_back({x,y});
     }
     
-    return array;
+    taken.insert( taken.end(), unnavigable.begin(), unnavigable.end() );
+    
+    return taken;
 }
 
-void Game::addTile(int x, int y, int wall1, int wall2)
+void Game::addTile(int x, int y, int type)
 {
     auto &tile(manager.addEntity());
-    tile.addComponent<TileComponent>(x,y,(std::array<int, 2>){wall1,wall2});
+    tile.addComponent<TileComponent>(x,y,type);
     tile.addGroup(groupMap);
+    map.addToGrid(x, y, &tile);
 }
 
 

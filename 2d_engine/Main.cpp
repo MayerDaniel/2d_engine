@@ -12,7 +12,7 @@ int main(int argc, const char * argv[]) {
     
     game = new Game();
     
-    game -> init("Flash", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
+    game -> init("Flash", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 1000, false);
     
     while(game -> running()){
         

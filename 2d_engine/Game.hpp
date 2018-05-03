@@ -24,7 +24,7 @@ public:
     
     std::vector<std::array<int,2>> getTakenTiles();
     
-    static void addTile(int x, int y, int wall1, int wall2);
+    static void addTile(int x, int y, int type);
     static SDL_Renderer *renderer;
     
     //janky closure for event handler

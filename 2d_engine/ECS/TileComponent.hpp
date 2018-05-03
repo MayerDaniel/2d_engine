@@ -25,53 +25,29 @@ public:
     char *path;
     
     SDL_Rect tileRect;
-    std::array<int, 2> wallArray;
+    int type;
     
     TileComponent() = default;
     
-    TileComponent(int x, int y, std::array<int, 2> walls)
+    TileComponent(int x, int y, int t)
     {
         tileRect.x = x;
         tileRect.y = y;
-        wallArray = walls;
+        type = t;
         
         std::string str = "assets/";
         
-        switch (wallArray[0]) {
+        switch (type) {
             case 0:
-                str += "none";
+                str += "dirt";
                 break;
              
             case 1:
-                str += (char*)"left";
-                break;
-                
-            case 2:
-                str += (char*)"right";
+                str += "water";
                 break;
                 
             default:
-                str += "none";
-                break;
-        }
-        
-        str += "_";
-        
-        switch (wallArray[1]) {
-            case 0:
-                str += "none";
-                break;
-                
-            case 1:
-                str += (char*)"top";
-                break;
-                
-            case 2:
-                str += (char*)"bottom";
-                break;
-                
-            default:
-                str += "none";
+                str += "none_none";
                 break;
         }
         
@@ -89,6 +65,10 @@ public:
         sprite = &entity->getComponent<SpriteComponent>();
     }
     
+    int getType()
+    {
+        return type;
+    }
     
 };
 
