@@ -64,13 +64,13 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         map.LoadMap();
         
         Player1.addComponent<PositionComponent>(32,32);
-        Player1.addComponent<SpriteComponent>(16,16,"assets/strip.png");
+        Player1.addComponent<SpriteComponent>(49,43,"assets/robot_gun.png");
         Player1.addComponent<MovementComponent>(3);
         Player1.addGroup(groupPlayers);
         Player1.addGroup(groupOccupiers);
         
         Player2.addComponent<PositionComponent>(96,32);
-        Player2.addComponent<SpriteComponent>(16,16,"assets/strip.png");
+        Player2.addComponent<SpriteComponent>(49,43,"assets/robot_gun.png");
         Player2.addComponent<MovementComponent>(5);
         Player2.addGroup(groupPlayers);
         Player2.addGroup(groupOccupiers);

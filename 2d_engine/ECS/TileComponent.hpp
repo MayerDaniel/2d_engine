@@ -39,11 +39,11 @@ public:
         
         switch (type) {
             case 0:
-                str += "dirt";
+                str += "none_none";
                 break;
              
             case 1:
-                str += "water";
+                str += "crate";
                 break;
                 
             default:
@@ -61,7 +61,7 @@ public:
         entity->addComponent<PositionComponent>(tileRect.x, tileRect.y);
         position = &entity->getComponent<PositionComponent>();
         
-        entity->addComponent<SpriteComponent>(64, 64, path);
+        entity->addComponent<SpriteComponent>(48, 48, path);
         sprite = &entity->getComponent<SpriteComponent>();
     }
     
