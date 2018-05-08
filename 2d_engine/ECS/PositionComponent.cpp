@@ -17,11 +17,11 @@ PositionComponent::PositionComponent(int x, int y)
 void PositionComponent::update()
 {}
 
-int PositionComponent::x() { return xpos; }
-void PositionComponent::x(int x) { xpos = x; }
+int PositionComponent::x() { return xpos;}
+void PositionComponent::x(int x) { xpos = x;}
 
-int PositionComponent::y() { return ypos; }
-void PositionComponent::y(int y) { ypos = y; }
+int PositionComponent::y() { return ypos;}
+void PositionComponent::y(int y) { ypos = y;}
 
 void PositionComponent::update(int x, int y)
 {

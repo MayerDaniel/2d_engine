@@ -15,7 +15,9 @@ Manager manager;
 auto &Player1(manager.addEntity());
 auto &Player2(manager.addEntity());
 
-Map map = Map(25, 20);
+Map map = Map(50, 50);
+
+
 
 enum groupLabels : std::size_t
 {
@@ -24,6 +26,8 @@ enum groupLabels : std::size_t
     groupEnemies,
     groupOccupiers
 };
+
+SDL_Rect Game::camera = {0,0,25*32,25*32};
 
 Game::Game()
 {}
@@ -96,8 +100,8 @@ void Game::handleEvents()
                 break;
                 
             case SDL_MOUSEMOTION:
-                mouseX = event.motion.x;
-                mouseY = event.motion.y;
+                mouseX = event.motion.x + camera.x;
+                mouseY = event.motion.y + camera.y;
                 
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT){
@@ -126,6 +130,25 @@ void Game::handleEvents()
 
                     
                 }
+            
+            case SDL_KEYDOWN:
+                switch( event.key.keysym.sym ){
+                    case SDLK_LEFT:
+                        camera.x -= 32;
+                        break;
+                    case SDLK_RIGHT:
+                        camera.x += 32;
+                        break;
+                    case SDLK_UP:
+                        camera.y -= 32;
+                        break;
+                    case SDLK_DOWN:
+                        camera.y += 32;
+                        break;
+                    default:
+                        break;
+                }
+                
                 
                 
             delfault:
@@ -142,6 +165,19 @@ void Game::handleEvents()
 void Game::update()
 {
     manager.update();
+    
+    if(camera.x < 0){
+        camera.x = 0;
+    }
+    if (camera.y < 0){
+        camera.y = 0;
+    }
+    if (camera.x > camera.w){
+        camera.x = camera.w;
+    }
+    if (camera.y > camera.h){
+        camera.y = camera.h;
+    }
 }
 
 void Game::render()
@@ -192,6 +228,11 @@ void Game::addTile(int x, int y, int type)
     tile.addComponent<TileComponent>(x,y,type);
     tile.addGroup(groupMap);
     map.addToGrid(x, y, &tile);
+}
+
+void Game::addMoveMarker(int x, int y){
+    auto &tile(manager.addEntity());
+    tile.addComponent<PositionComponent>(x,y);
 }
 
 

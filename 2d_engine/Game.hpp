@@ -25,7 +25,10 @@ public:
     std::vector<std::array<int,2>> getTakenTiles();
     
     static void addTile(int x, int y, int type);
+    static void addMoveMarker(int x, int y);
     static SDL_Renderer *renderer;
+    
+    static SDL_Rect camera;
     
     //janky closure for event handler
     static std::vector<SDL_Event>& GetFrameEvents()

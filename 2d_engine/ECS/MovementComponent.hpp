@@ -34,6 +34,8 @@ public:
     
     void showValidMoves(std::vector<std::array<int,2>> taken);
     
+    void update() override;
+    
     void draw() override;
 };
 

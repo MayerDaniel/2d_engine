@@ -17,6 +17,7 @@ class PositionComponent : public Component
 {
 private:
     int xpos, ypos;
+    int displayX, displayY;
     
 public:
     PositionComponent();

@@ -95,9 +95,16 @@ void MovementComponent::draw(){
         
         SDL_Texture *tile = TextureManager::LoadTexture("assets/valid_move.png");
         for (auto &m : moves){
-            TextureManager::Draw(tile, m.src, m.dest);
+            SDL_Rect copy = m.dest;
+            copy.x = m.dest.x - Game::camera.x;
+            copy.y = m.dest.y - Game::camera.y;
+            TextureManager::Draw(tile, m.src, copy);
         }
     } else {
         moves.clear();
     }
+}
+
+void MovementComponent::update(){
+    
 }

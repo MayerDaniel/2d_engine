@@ -42,8 +42,8 @@ void SpriteComponent::init()
 
 void SpriteComponent::update()
 {
-    destRect.x = position->x();
-    destRect.y = position->y();
+    destRect.x = position->x() - Game::camera.x;
+    destRect.y = position->y() - Game::camera.y;
     
 }
 

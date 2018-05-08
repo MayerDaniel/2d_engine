@@ -26,7 +26,7 @@ public:
     
     SDL_Rect tileRect;
     int type;
-    
+        
     TileComponent() = default;
     
     TileComponent(int x, int y, int t)
